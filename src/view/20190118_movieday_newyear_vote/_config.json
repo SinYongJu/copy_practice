@@ -1,0 +1,21 @@
+{
+  "name": "movieday_newyear_vote",
+  "config": {
+    "templates": [
+      "app",
+      "pc",
+      "mo"
+    ],
+    "dependencies": [
+      "common",
+      "render",
+      "socialShare"
+    ]
+  },
+  "imgaes": [
+    {
+      "title": "img_test.png",
+      "hashId": "bpXzkp/hyqFdx6IeV/hUTmKf521Wb3gXrqQrbCA1"
+    }
+  ]
+}

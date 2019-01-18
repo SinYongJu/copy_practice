@@ -1,0 +1,215 @@
+<head>
+  <meta name="author" content="카카오페이지">
+  <meta name="keywords" content="카카오페이지">
+  <meta name="description" content="카카오페이지">
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="카카오페이지" />
+  <meta property="og:locale" content="ko_KR">
+  <meta property="fb:app_id" content="574884132543436" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@kakaopage">
+  <meta name="twitter:creator" content="@kakaopage">
+
+  <!-- social share meta start -->
+  <meta property="og:title" content="카카오페이지 공유하기 타이틀" />
+  <meta property="og:description" content="카카오페이지 공유하기 설명" />
+  <meta property="og:image" content="imgHashId">
+  <meta property="og:url" content="https://page.kakao.com/store/event/v2/{uid}" />
+  <meta name="twitter:title" content="카카오페이지 공유하기 타이틀">
+  <meta name="twitter:description" content="카카오페이지 공유하기 설명" />
+  <meta name="twitter:image" content="{imgHashId}">
+  <meta name="twitter:url" content="https://page.kakao.com/store/event/v2/{uid}">
+  <!-- social share meta end -->
+  <style>
+    /* mobile reset */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, textarea, p, blockquote, th, td, input, select, button{margin:0;padding:0}
+fieldset, img{border:0 none}
+dl, ul, ol, menu, li{list-style:none}
+blockquote, q{quotes:none}
+blockquote:before, blockquote:after, q:before, q:after{content:'';content:none}
+input, select, textarea, button{vertical-align:middle;font-size:100%}
+button{border:0 none;background-color:transparent;cursor:pointer}
+table{border-collapse:collapse;border-spacing:0}
+body{-webkit-text-size-adjust:none}
+input:checked[type='checkbox']{background-color:#666; -webkit-appearance:checkbox}
+input[type='text'], input[type='password'], input[type='submit'], input[type='search'], input[type='tel'], input[type='email'], html input[type='button'], input[type='reset']{-webkit-appearance:none;border-radius:0}
+input[type='search']::-webkit-search-cancel-button{-webkit-appearance:none}
+body{background:#fff}
+body, th, td, input, select, textarea, button{font-size:14px;line-height:1.5;font-family:'Malgun Gothic', '맑은 고딕', sans-serif;color:#333}
+a{color:#333;text-decoration:none}
+a:active, a:hover{text-decoration:none}
+address, caption, cite, code, dfn, em, var{font-style:normal;font-weight:normal}
+button{display:block;width:100%;border:0 none}
+.ir_pm{display:block;overflow:hidden;font-size:1px;line-height:0;color:transparent}
+.screen_out{overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px}
+
+</style>
+</head>
+<div id="kakaoPromotion" class="prm_newyear">
+  <div id="kakaoHead">
+    <!-- your code here -->
+    <h1>카카오페이지</h1>
+    <h2>설특집 무비데이</h2>
+    <strong>설 연휴에 이 영화 보고 싶어? 다 보여 줄게</strong>
+
+    <strong>data</strong>
+    <p class="desc_data"></p>
+    <strong>status</strong>
+    <p id="vote_status"></p>
+
+  </div>
+  <div id="kakaoContent">
+    <div class="area_vote">
+      <h3>설특집 무비데이 영화 투표</h3>
+      <strong>무비데이 영화 목록</strong>
+      <ul class="list_vote">
+        <li>
+          <input type="radio" id="movie1" name="selectFavoriteMovie" value="영화1" class="inp_g">
+          <label for="movie1" class="lab_g">영화1</label>
+        </li>
+        <li>
+          <input type="radio" id="movie2" name="selectFavoriteMovie" value="영화2" class="inp_g">
+          <label for="movie2" class="lab_g">영화2</label>
+        </li>
+        <li>
+          <input type="radio" id="movie3" name="selectFavoriteMovie" value="영화3" class="inp_g">
+          <label for="movie3" class="lab_g">영화3</label>
+        </li>
+        <li>
+          <input type="radio" id="movie4" name="selectFavoriteMovie" value="영화4" class="inp_g">
+          <label for="movie4" class="lab_g">영화4</label>
+        </li>
+        <li>
+          <input type="radio" id="movie5" name="selectFavoriteMovie" value="영화5" class="inp_g">
+          <label for="movie5" class="lab_g">영화5</label>
+        </li>
+      </ul>
+      <div class="night_vote">
+        <input type="checkbox" id="nightAgree" name="bbb" class="inp_g">
+        <label for="nightAgree" class="lab">야간 수신 동의</label>
+      </div>
+      <button type="button" class="btn_vote">투표하기</button>
+      <button type="button" class="btn_result">결과보기</button>
+    </div><!-- area_vote -->
+  </div>
+</div>
+<div class="dimmed_layer">
+  <!-- 위치값에 대한 속성만 스타일 적용(position 및 좌표) -->
+  <div class="inner_vote_layer inner_vote_layer1">
+    <!-- inner_xxx_layer:공통 / inner_xxx_layer1:타입별 -->
+    <div class="layer_head"><strong>투표 결과 보기</strong></div>
+    <div class="layer_body">
+      <ul classs="">
+        <li>
+          <strong>영화1<strong>
+              <p><span class="">투표율</span>10%<span>투표인원</span>38283명</p>
+              <span class="">10%</span>
+        </li>
+      </ul>
+    </div>
+    <div class="layer_foot">
+      <button type="button" class="type_btn btn_layer btn_close">닫기</button>
+    </div>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.1/jsrender.min.js"></script>
+<script src="${contextPath}/resources/js/clipboard.min.js"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+  $(document).ready(function () {
+    'use strict';
+    var FE = {};
+
+    var ctx = document.querySelector('#kakaoPromotion');
+    var voteListCtx = ctx.querySelector('.list_vote');
+    var voteTargets = voteListCtx.querySelectorAll('input[type="radio"]');
+
+
+    console.log(voteTargets);
+
+    var btnVote = ctx.querySelector('.btn_vote');
+
+
+    var vote_uid = 3;
+
+    $(function () {
+
+      alert("1234");
+      $('#stoken').html(serverToken);
+      alert(userUid);
+      alert(serverToken);
+      getVoteList(vote_uid);
+
+    });
+
+
+    btnVote.addEventListener('click', function () {
+
+      execute()
+
+
+    });
+
+    function execute() {
+
+      for (var i = 0; i < voteTargets.length; i++) {
+        if (voteTargets[i].checked) {
+          var vote = voteTargets[i].value;
+          //  voteRe = vote;
+        }
+      }
+
+      if (vote) {
+        $.ajax({
+          type: 'post',
+          url: 'https://api2-page.kakao.com/api/vote/execute',
+          data: {
+            'vote_uid': vote_uid,
+            'user_uid': userUid,
+            'stoken': serverToken,
+            'content_uid': vote
+          },
+          dataType: 'json',
+          success: function (data) {
+
+            $('#vote_status').html(data.message);
+
+
+          },
+          error: function (error) {
+            $('#vote_status').html(error.message);
+          }
+        });
+      }
+      else {
+        $('#vote_status').html("투표 항목을 선택하세요 ");
+      }
+    }
+
+    function getVoteList(vote_uid) {
+
+      $.ajax({
+        type: 'post',
+        url: 'https://api2-page.kakao.com/api/vote/list',
+        data: {
+          'vote_uid': vote_uid,
+          'user_uid': userUid,
+          'stoken': serverToken
+        },
+        dataType: 'json',
+        success: function (data) {
+          alert(data)
+          $('#vote_status').html(JSON.stringify(data));
+
+
+
+
+        },
+        error: function (error) {
+          $('#vote_status').html(error);
+        }
+      });
+    }
+
+  });
+</script>

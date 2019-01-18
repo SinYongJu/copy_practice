@@ -1,0 +1,32 @@
+{
+  "name": "ft1_kakaopage-charlie",
+  "version": "1.0.0",
+  "description": "* 카카오페이지 운영 / 찰리툴용",
+  "main": "index.js",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dateformat": "^3.0.3",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "freemarker": "^1.4.2",
+    "fs": "0.0.1-security",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.9",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init": "node src/config/cli/init.js",
+    "create": "node src/config/cli/create.js",
+    "start": "nodemon src/app.js",
+    "build": "node src/config//cli/replace.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.kakaocorp.com:Techin/ft1_kakaopage-charlie.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
