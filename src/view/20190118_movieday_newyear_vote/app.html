@@ -43,6 +43,12 @@ button{display:block;width:100%;border:0 none}
 .ir_pm{display:block;overflow:hidden;font-size:1px;line-height:0;color:transparent}
 .screen_out{overflow:hidden;position:absolute;width:0;height:0;line-height:0;text-indent:-9999px}
 
+
+.scrollBlock{overflow:hidden;position:relative;height:100%}
+.dimmed_vote_layer{overflow:hidden;display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:1000;background-color:rgba(0,0,0,0.5);font-size:0;text-align:center;white-space:nowrap}
+.dimmed_vote_layer::after{display:inline-block;height:100%;vertical-align:middle;content:''}
+.inner_vote_layer{display:inline-block;width:83.33%;min-height:300px;background-color:#fff;vertical-align:middle;white-space:normal}
+
 </style>
 </head>
 <div id="kakaoPromotion" class="prm_newyear">
@@ -55,15 +61,18 @@ button{display:block;width:100%;border:0 none}
     <strong>data</strong>
     <p class="desc_data"></p>
     <strong>status</strong>
-    <p id="vote_status"></p>
+    <p id="vote_status">
+      <textarea name="" id="textArea" cols="30" rows="10"></textarea>
 
+    </p>
+   
   </div>
   <div id="kakaoContent">
     <div class="area_vote">
       <h3>설특집 무비데이 영화 투표</h3>
       <strong>무비데이 영화 목록</strong>
       <ul class="list_vote">
-        <li>
+        <!-- li>
           <input type="radio" id="movie1" name="selectFavoriteMovie" value="영화1" class="inp_g">
           <label for="movie1" class="lab_g">영화1</label>
         </li>
@@ -82,7 +91,7 @@ button{display:block;width:100%;border:0 none}
         <li>
           <input type="radio" id="movie5" name="selectFavoriteMovie" value="영화5" class="inp_g">
           <label for="movie5" class="lab_g">영화5</label>
-        </li>
+        </li -->
       </ul>
       <div class="night_vote">
         <input type="checkbox" id="nightAgree" name="bbb" class="inp_g">
@@ -93,25 +102,40 @@ button{display:block;width:100%;border:0 none}
     </div><!-- area_vote -->
   </div>
 </div>
-<div class="dimmed_layer">
+
+<div class="dimmed_vote_layer">
   <!-- 위치값에 대한 속성만 스타일 적용(position 및 좌표) -->
   <div class="inner_vote_layer inner_vote_layer1">
     <!-- inner_xxx_layer:공통 / inner_xxx_layer1:타입별 -->
     <div class="layer_head"><strong>투표 결과 보기</strong></div>
     <div class="layer_body">
-      <ul classs="">
-        <li>
-          <strong>영화1<strong>
-              <p><span class="">투표율</span>10%<span>투표인원</span>38283명</p>
-              <span class="">10%</span>
-        </li>
-      </ul>
+      
     </div>
     <div class="layer_foot">
       <button type="button" class="type_btn btn_layer btn_close">닫기</button>
     </div>
   </div>
 </div>
+<script type="text/x-jsrender" id="selectFavoriteMovieTmpl">
+<ul classs="">
+  {{for content_list}}
+  <li>
+    <strong>영화1<strong>
+      <p><span class="">투표율</span>10%<span>투표인원</span>38283명</p>
+      <span class="">10%</span>
+  </li>
+  {{/for}}
+</ul>
+</script>
+<script type="text/x-jsrender" id="selectFavoriteMovieTmpl">
+  {{for content_list}}
+  <li>
+    <input type="radio" id="movie{{:uid}}" name="selectFavoriteMovie" value="{{:Name}}" class="inp_g">
+    <label for="movie{{:uid}}" class="lab_g">{{:Name}}</label>
+  </li>
+  {{/for}}
+</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.1/jsrender.min.js"></script>
 <script src="${contextPath}/resources/js/clipboard.min.js"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
@@ -121,13 +145,171 @@ button{display:block;width:100%;border:0 none}
     var FE = {};
 
     var ctx = document.querySelector('#kakaoPromotion');
-    var voteListCtx = ctx.querySelector('.list_vote');
-    var voteTargets = voteListCtx.querySelectorAll('input[type="radio"]');
+    var voteListCtx = $('.list_vote');
+   
+    var btnResultView = $('.btn_result');
+   
+
+    // 레이어 팝업
+    var layerCtx = $('.dimmed_vote_layer');
+    var layerCloseBtn = layerCtx.find('.btn_close');
 
 
-    console.log(voteTargets);
+    btnResultView.on('click',function(){
+      layerCtx.css('display','block');
+      $('html').addClass('scrollBlock');
+      
+    });
 
-    var btnVote = ctx.querySelector('.btn_vote');
+    layerCloseBtn.on('click',function(){
+      layerCtx.css('display','none');
+      $('html').removeClass('scrollBlock');
+    });
+
+    var selectFavoriteMovieTmpl = $.templates('#selectFavoriteMovieTmpl');
+    
+    
+
+
+    var btnVote = $('.btn_vote');
+
+    
+
+    var tmpGetData = {
+      "profile_img" : "",
+      "is_already_vote": false,
+      "nick_name":"Testr",
+      "result_code":0,
+      "response_time":"2018-11-30 15:50:00",
+      "message":"성공",
+      "content_list":[
+        {
+        "uid":2,
+        "vote_uid":1,
+        "scheme":"2",
+        "Name":"2번",
+        "thumbnail_url":"",
+        "activation":"Y",
+        "item_order":1,
+        "create_dt":"2018-11-29 20:11:11",
+        "modify_dt":"2018-11-29 20:12:12"
+        },
+        {
+        "uid":3,
+        "vote_uid":1,
+        "scheme":"3",
+        "Name":"333333",
+        "thumbnail_url":"",
+        "activation":"Y",
+        "item_order":1,
+        "create_dt":"2018-11-29 20:11:11",
+        "modify_dt":"2018-11-29 20:12:12"
+        },
+        {
+        "uid":1,
+        "vote_uid":1,
+        "scheme":"3",
+        "Name":"1번항목",
+        "thumbnail_url":"",
+        "activation":"Y",
+        "item_order":2,
+        "create_dt":"2018-11-29 20:11:11",
+        "modify_dt":"2018-11-29 20:12:12"
+        }],
+      "total_count" : 9,
+      "nick_name" : "아무나ㅣ우미ㅏㄴ으",
+      "content_uid" : 0,
+      "result_code" : 0,
+      "response_time" : "2018-12-05 19:00:23",
+      "message":"성공"
+
+    }
+
+    
+    voteListCtx.html(selectFavoriteMovieTmpl.render(tmpGetData));
+
+
+    var tmpGetExcuteDataSuccess = {
+     "profile_img":"http://dn-img-page.kakao.com/download/resource?kid=oi6E0/hybBI7t8Ik/ujE2LGUlQExuPFMb0K9nz0",
+     "nick_name":"Testr",
+     "result_code":0,
+     "reponse_time":"2018-11-30 15:52:18",
+     "message":"성공"
+    }
+    var tmpGetExcuteDataFail = {
+      "profile_img":"http://dn-img-page.kakao.com/download/resource?kid=oi6E0/hybBI7t8Ik/ujE2LGUlQExuPFMb0K9nz0",
+     "nick_name":"Testr",
+     "result_code":-230,
+     "reponse_time":"2018-11-30 15:52:34",
+     "message":"이미 투표를 진행했습니다."
+    }
+    
+    var tmpResultData = {
+      "profile_img":"http://dn-img-page.kakao.com/download/resource?kid=oi6E0/hybBI7t8Ik/ujE2LGUlQExuPFMb0K9nz0",
+      "total_result" : {
+        "1" : 2,
+        "2" : 6,
+        "3" : 1
+      },
+      "vote_info" : {
+        "uid" : 1,
+        "title" : "션더꿀과 아가들",
+        "description" : "션더꿀과 아가아가 아장아장",
+        "activation" : "Y",
+        "start_dt":"2018-11-23 20:11:11",
+        "end_dt":"2018-11-30 20:12:12",
+        "create_dt":"2018-11-29 20:11:11"
+      },
+      "content_list":[
+        {
+        "uid":2,
+        "vote_uid":1,
+        "scheme":"2",
+        "Name":"2번",
+        "thumbnail_url":"",
+        "activation":"Y",
+        "item_order":1,
+        "create_dt":"2018-11-29 20:11:11",
+        "modify_dt":"2018-11-29 20:12:12"
+        },
+        {
+        "uid":3,
+        "vote_uid":1,
+        "scheme":"3",
+        "Name":"333333",
+        "thumbnail_url":"",
+        "activation":"Y",
+        "item_order":1,
+        "create_dt":"2018-11-29 20:11:11",
+        "modify_dt":"2018-11-29 20:12:12"
+        },
+        {
+        "uid":1,
+        "vote_uid":1,
+        "scheme":"3",
+        "Name":"1번항목",
+        "thumbnail_url":"",
+        "activation":"Y",
+        "item_order":2,
+        "create_dt":"2018-11-29 20:11:11",
+        "modify_dt":"2018-11-29 20:12:12"
+        }],
+      "total_count" : 9,
+      "nick_name" : "아무나ㅣ우미ㅏㄴ으",
+      "content_uid" : 0,
+      "result_code" : 0,
+      "response_time" : "2018-12-05 19:00:23",
+      "message":"성공"
+
+    }
+
+    btnVote.on('click',function(){
+
+      execute()
+
+    });
+
+
 
 
     var vote_uid = 3;
@@ -141,7 +323,7 @@ button{display:block;width:100%;border:0 none}
       getVoteList(vote_uid);
 
     });
-
+/*
 
     btnVote.addEventListener('click', function () {
 
@@ -149,8 +331,12 @@ button{display:block;width:100%;border:0 none}
 
 
     });
+*/
+
+
 
     function execute() {
+      var voteTargets = voteListCtx.find('input[type="radio"]');
 
       for (var i = 0; i < voteTargets.length; i++) {
         if (voteTargets[i].checked) {
@@ -158,8 +344,26 @@ button{display:block;width:100%;border:0 none}
           //  voteRe = vote;
         }
       }
+      if (vote) {
+
+        if(tmpGetExcuteDataFail.result_code === 0){
+        
+          $('#vote_status').html(tmpGetExcuteDataSuccess.message)
+
+        }else{
+
+          $('#vote_status').html(tmpGetExcuteDataFail.message)
+        }
+
+      }else{
+
+        $('#vote_status').css('backgroundColor','red')
+        $('#vote_status').html("투표 항목을 선택하세요 ");
+      }
+
 
       if (vote) {
+
         $.ajax({
           type: 'post',
           url: 'https://api2-page.kakao.com/api/vote/execute',
@@ -173,16 +377,20 @@ button{display:block;width:100%;border:0 none}
           success: function (data) {
 
             $('#vote_status').html(data.message);
-
+            
+           
 
           },
           error: function (error) {
             $('#vote_status').html(error.message);
           }
         });
+
       }
       else {
-        $('#vote_status').html("투표 항목을 선택하세요 ");
+        //$('#vote_status').css('backgroundColor','red')
+       // $('#vote_status').html("투표 항목을 선택하세요 ");
+      
       }
     }
 
@@ -198,15 +406,14 @@ button{display:block;width:100%;border:0 none}
         },
         dataType: 'json',
         success: function (data) {
-          alert(data)
-          $('#vote_status').html(JSON.stringify(data));
 
+          voteListCtx.html(selectFavoriteMovieTmpl.render(data));
 
-
+          $('#textArea').html(JSON.stringify(data));
 
         },
         error: function (error) {
-          $('#vote_status').html(error);
+          $('#textArea').html(error);
         }
       });
     }
